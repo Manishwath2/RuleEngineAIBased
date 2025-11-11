@@ -1,0 +1,26 @@
+{
+  "name": "rule-engine-ai-based",
+  "version": "1.0.0",
+  "description": "AI-based rule configuration platform for insurance workflows",
+  "main": "server/index.js",
+  "scripts": {
+    "install:all": "npm install && cd client && npm install",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server/index.js",
+    "client": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": ["rule-engine", "ai", "insurance", "workflow"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
