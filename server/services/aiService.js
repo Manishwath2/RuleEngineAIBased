@@ -141,22 +141,30 @@ class AIService {
     let successAction = null;
     let failureAction = null;
     
-    // Parse success action
-    const successMatch = message.match(/on success\s+(.+?)(?:on failure|$)/i);
-    if (successMatch) {
-      successAction = {
-        type: 'action',
-        description: successMatch[1].trim()
-      };
+    // Parse success action - use indexOf for safety
+    const successIdx = lowerMessage.indexOf('on success');
+    const failureIdx = lowerMessage.indexOf('on failure');
+    
+    if (successIdx !== -1) {
+      const start = successIdx + 'on success'.length;
+      const end = failureIdx !== -1 ? failureIdx : message.length;
+      const actionText = message.substring(start, end).trim();
+      if (actionText) {
+        successAction = {
+          type: 'action',
+          description: actionText
+        };
+      }
     }
     
-    // Parse failure action
-    const failureMatch = message.match(/on failure\s+(.+?)$/i);
-    if (failureMatch) {
-      failureAction = {
-        type: 'action',
-        description: failureMatch[1].trim()
-      };
+    if (failureIdx !== -1) {
+      const actionText = message.substring(failureIdx + 'on failure'.length).trim();
+      if (actionText) {
+        failureAction = {
+          type: 'action',
+          description: actionText
+        };
+      }
     }
     
     return { successAction, failureAction };
